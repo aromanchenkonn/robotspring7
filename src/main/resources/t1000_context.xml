@@ -14,9 +14,26 @@ default-lazy-init="true"
 		<constructor-arg value="silver" index="3" type="String" />
 		<constructor-arg value="2005" index="4" type="int" />
 		<constructor-arg value="true" index="5" type="boolean" />
-		
 
+		<property name="hand" ref="sonyHand"/>
 	</bean>
+
+	<!--
+	метод
+	paren - это наследование бинов.
+	Необходим для того, чтобы не дублировать код в xml.
+	В нашем случае - бин t1000 наследуется от бина baseModel
+	со всеми его конструкторами.
+	Если наследование не выполнить, то пришлось бы
+	дублировать конструкторы бина baseModel  в бине t1000.
+
+	Также не забываем об индексах,
+	которые соответствуют порядку пременных в конструкторе.
+	В нашем случае сначала индексы в бине baseModel а затем в бине t1000.
+
+	Внимание !
+	в бине baseModel мы даже не указываем класс, просто id.
+	-->
 	
 
 	<bean id="baseModel" abstract="true">
@@ -25,8 +42,24 @@ default-lazy-init="true"
 		<constructor-arg ref="sonyLeg" index="1"/>
 		<constructor-arg ref="sonyHead" index="2"/>
 
+		<property name="hand" ref="toshibaHand"/>
+
 
 	</bean>
+
+	<!--
+	в бине baseModel указываем abstract="true"
+	т.к. класс BaseModel - абстрактный
+
+	Также можно переопределять определенные свойства в бине наследнике.
+	В нашем примере для абстракной модели определена toshibaHand
+
+		<property name="hand" ref="toshibaHand"/>
+	, а в бине наследнике t1000
+	моежем переопределить как sonyHand
+		<property name="hand" ref="sonyHand"/>
+
+	-->
 
 
 
